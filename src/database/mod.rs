@@ -23,7 +23,3 @@ pub enum FindUserBy {
     UserFoundByLogin,
     UserFoundByEmail,
 }
-
-pub enum AddElementLoginError {
-    Ok,
-}
