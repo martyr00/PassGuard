@@ -2,7 +2,7 @@ use rocket::http::Status;
 use rocket::serde::json::Json;
 use rocket::State;
 
-use crate::constants::{LEN_LOGIN, LEN_PASSWORD, WRONG_REQUEST};
+use crate::constants::{LEN_LOGIN_AUTH, LEN_PASSWORD_AUTH, WRONG_REQUEST};
 use crate::database::connect_to_db::MongoDB;
 use crate::database::LoginError;
 use crate::error_response::error_responses::ErrorResponse;
@@ -35,8 +35,8 @@ fn check_login_request(option_login_request: Option<Json<LoginRequest>>) -> Logi
             match get_valid_login_and_password(
                 &login_request.login,
                 &login_request.password,
-                LEN_LOGIN,
-                LEN_PASSWORD,
+                LEN_LOGIN_AUTH,
+                LEN_PASSWORD_AUTH,
             ) {
                 TypeValidTwoStr::Ok => LoginRequestError::Ok(login_request),
                 TypeValidTwoStr::BadFirst => LoginRequestError::BadLogin,

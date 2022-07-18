@@ -5,6 +5,7 @@ use bcrypt::hash;
 use mongodb::bson::oid::ObjectId;
 use rocket::http::Status;
 use rocket::State;
+use crate::constants::LenText;
 
 //check valid text
 pub fn check_valid_text(text: &str, max_size: usize, min_size: usize) -> bool {
@@ -92,5 +93,23 @@ pub async fn parse_id_and_find_user_by_id(
             Err(_) => FindUserById::BadId,
         },
         Err(_) => FindUserById::BadId,
+    }
+}
+
+pub enum ValidDescAndUrlError{
+    Ok,
+    DescriptionIsNotValid,
+    NoneDescription
+}
+
+pub fn get_valid_desc(description: Option<String>, len_desc: LenText) -> ValidDescAndUrlError {
+    match description {
+        None => {ValidDescAndUrlError::NoneDescription},
+        Some(description) => {
+            match check_valid_text(&description, len_desc.max, len_desc.min) {
+                true => {ValidDescAndUrlError::Ok}
+                false => {ValidDescAndUrlError::DescriptionIsNotValid}
+            }
+        }
     }
 }

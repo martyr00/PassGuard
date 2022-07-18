@@ -1,12 +1,4 @@
-use crate::error_response::error_responses::{
-    ErrorResponse, ALREADY_REGISTERED_EMAIL_JSON, ALREADY_REGISTERED_LOGIN_JSON,
-    ERROR_ALREADY_REGISTERED_STATUS, ERROR_NOT_FOUND_STATUS, ERROR_UNAUTHORIZED_STATUS,
-    ERROR_UNKNOWN_STATUS, ERROR_WEAK_LOGIN_STATUS, ERROR_WEAK_PASSWORD_STATUS,
-    ERROR_WRONG_FIRST_NAME_STATUS, ERROR_WRONG_LAST_NAME_STATUS, ERROR_WRONG_MAIL_STATUS,
-    ERROR_WRONG_REQUEST_STATUS, NOT_FOUND_JSON, UNAUTHORIZED_JSON, UNKNOWN_JSON, WEAK_LOGIN_JSON,
-    WEAK_PASSWORD_JSON, WRONG_FIRST_NAME_JSON, WRONG_LAST_NAME_JSON, WRONG_MAIL_JSON,
-    WRONG_REQUEST_JSON,
-};
+use crate::error_response::error_responses::{ErrorResponse, ALREADY_REGISTERED_EMAIL_JSON, ALREADY_REGISTERED_LOGIN_JSON, ERROR_ALREADY_REGISTERED_STATUS, ERROR_NOT_FOUND_STATUS, ERROR_UNAUTHORIZED_STATUS, ERROR_UNKNOWN_STATUS, ERROR_WEAK_LOGIN_STATUS, ERROR_WEAK_PASSWORD_STATUS, ERROR_WRONG_FIRST_NAME_STATUS, ERROR_WRONG_LAST_NAME_STATUS, ERROR_WRONG_MAIL_STATUS, ERROR_WRONG_REQUEST_STATUS, NOT_FOUND_JSON, UNAUTHORIZED_JSON, UNKNOWN_JSON, WEAK_LOGIN_JSON, WEAK_PASSWORD_JSON, WRONG_FIRST_NAME_JSON, WRONG_LAST_NAME_JSON, WRONG_MAIL_JSON, WRONG_REQUEST_JSON, ERROR_DESCRIPTION_STATUS, WRONG_DESCRIPTION_JSON};
 use rocket::http::Status;
 use rocket::serde::json::Json;
 
@@ -18,11 +10,11 @@ pub struct LenText {
     pub(crate) max: usize,
 }
 
-//min && max len login
-pub const LEN_LOGIN: LenText = LenText { min: 2, max: 200 };
+//min && max len login in auth
+pub const LEN_LOGIN_AUTH: LenText = LenText { min: 2, max: 200 };
 
-//min && max len password
-pub const LEN_PASSWORD: LenText = LenText { min: 8, max: 200 };
+//min && max len password in auth
+pub const LEN_PASSWORD_AUTH: LenText = LenText { min: 8, max: 200 };
 
 //min && max len first name
 pub const LEN_FIRST_NAME: LenText = LenText { min: 2, max: 100 };
@@ -53,6 +45,9 @@ pub const WEAK_PASSWORD: (Status, Json<ErrorResponse>) =
 pub const WEAK_LOGIN: (Status, Json<ErrorResponse>) =
     (ERROR_WEAK_LOGIN_STATUS, Json(WEAK_LOGIN_JSON));
 
+pub const WRONG_DESCRIPTION: (Status, Json<ErrorResponse>) =
+    (ERROR_DESCRIPTION_STATUS, Json(WRONG_DESCRIPTION_JSON));
+
 pub const UNKNOWN: (Status, Json<ErrorResponse>) = (ERROR_UNKNOWN_STATUS, Json(UNKNOWN_JSON));
 
 pub const UNAUTHORIZED: (Status, Json<ErrorResponse>) =
@@ -65,3 +60,12 @@ pub const WRONG_LAST_NAME: (Status, Json<ErrorResponse>) =
     (ERROR_WRONG_LAST_NAME_STATUS, Json(WRONG_LAST_NAME_JSON));
 
 pub const NOT_FOUND: (Status, Json<ErrorResponse>) = (ERROR_NOT_FOUND_STATUS, Json(NOT_FOUND_JSON));
+
+//min && max len login in element login
+pub const LEN_LOGIN_IN_ELEMENT_LOGIN: LenText = LenText { min: 1, max: 500 };
+
+//min && max len password in element login
+pub const LEN_PASSWORD_IN_ELEMENT_LOGIN: LenText = LenText { min: 1, max: 500};
+
+//min && max len description in element login
+pub const LEN_DESCRIPTION_IN_ELEMENT_LOGIN: LenText = LenText { min: 4, max: 800};

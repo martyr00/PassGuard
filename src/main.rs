@@ -18,6 +18,7 @@ use crate::routes::routes::delete_user::delete_user;
 use crate::routes::routes::get_data_user::get_data_user;
 use crate::routes::routes::hello_name::{hello_name_user, hello_world};
 use crate::routes::routes::patch_user::edit_user;
+use crate::routes::routes::post_pass::post_element_login;
 use crate::routes::routes::refresh_tokens::refresh_tokens;
 
 pub mod constants;
@@ -51,7 +52,8 @@ async fn rocket() -> _ {
                 refresh_tokens,
                 delete_user,
                 edit_user,
-                get_data_user
+                get_data_user,
+                post_element_login,
             ],
         )
         .manage(cors.to_cors())

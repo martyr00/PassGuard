@@ -7,7 +7,9 @@ use crate::constants::{EXPIRATION_REFRESH_TOKEN, EXPIRATION_TOKEN};
 use crate::database::connect_to_db::MongoDB;
 use crate::database::{FindUserBy, LoginError, RegistrationError};
 use crate::helper::{find_user_by_login_and_mail, hash_text};
+use crate::models::model_element::Element;
 use crate::models::model_user::User;
+use crate::models::request::model_login::DataElementLogin;
 use crate::models::request::login_request::LoginRequest;
 use crate::models::request::patch_request::EditUserRequest;
 use crate::models::request::registration_request::RegistrationRequest;
@@ -143,4 +145,145 @@ impl MongoDB {
             FindUserBy::UserFoundByLogin => Ok(RegistrationError::AlreadyRegisteredByLogin),
         }
     }
+
+    pub async fn add_element_login(&self, element: Json<DataElementLogin>, id_user: ObjectId) -> mongodb::error::Result<()> {
+        let collection_element = self.database.collection::<Element>("element");
+
+        let element_login = Element {
+            id_user,
+            name: element.name.clone(),
+            login: Some(element.login.clone()),
+            password: Some(element.password.clone()),
+            url: element.url.clone(),
+            owners_name: None,
+            number: None,
+            type_card: None,
+            month_card: None,
+            year_card: None,
+            ccv: None,
+            first_name: None,
+            second_name: None,
+            last_name: None,
+            company: None,
+            mail: None,
+            telephone: None,
+            address_2: None,
+            address_1: None,
+            city: None,
+            region: None,
+            index: None,
+            country: None,
+            description: element.description.clone(),
+            favorite: element.favorite
+        };
+
+       collection_element.insert_one(element_login, None).await?;
+        Ok(())
+    }
+
+    pub async fn add_element_card(&self, element: Json<DataElementLogin>, id_user: ObjectId) -> mongodb::error::Result<()> {
+        let collection_element = self.database.collection::<Element>("element");
+
+        let element_login = Element {
+            id_user,
+            name: element.name.clone(),
+            login: Some(element.login.clone()),
+            password: Some(element.password.clone()),
+            url: element.url.clone(),
+            owners_name: None,
+            number: None,
+            type_card: None,
+            month_card: None,
+            year_card: None,
+            ccv: None,
+            first_name: None,
+            second_name: None,
+            last_name: None,
+            company: None,
+            mail: None,
+            telephone: None,
+            address_2: None,
+            address_1: None,
+            city: None,
+            region: None,
+            index: None,
+            country: None,
+            description: element.description.clone(),
+            favorite: element.favorite
+        };
+
+        collection_element.insert_one(element_login, None).await?;
+        Ok(())
+    }
+
+    pub async fn add_element_personal_information(&self, element: Json<DataElementLogin>, id_user: ObjectId) -> mongodb::error::Result<()> {
+        let collection_element = self.database.collection::<Element>("element");
+
+        let element_login = Element {
+            id_user,
+            name: element.name.clone(),
+            login: Some(element.login.clone()),
+            password: Some(element.password.clone()),
+            url: element.url.clone(),
+            owners_name: None,
+            number: None,
+            type_card: None,
+            month_card: None,
+            year_card: None,
+            ccv: None,
+            first_name: None,
+            second_name: None,
+            last_name: None,
+            company: None,
+            mail: None,
+            telephone: None,
+            address_2: None,
+            address_1: None,
+            city: None,
+            region: None,
+            index: None,
+            country: None,
+            description: element.description.clone(),
+            favorite: element.favorite
+        };
+
+        collection_element.insert_one(element_login, None).await?;
+        Ok(())
+    }
+
+    pub async fn add_element_note(&self, element: Json<DataElementLogin>, id_user: ObjectId) -> mongodb::error::Result<()> {
+        let collection_element = self.database.collection::<Element>("element");
+
+        let element_login = Element {
+            id_user,
+            name: element.name.clone(),
+            login: Some(element.login.clone()),
+            password: Some(element.password.clone()),
+            url: element.url.clone(),
+            owners_name: None,
+            number: None,
+            type_card: None,
+            month_card: None,
+            year_card: None,
+            ccv: None,
+            first_name: None,
+            second_name: None,
+            last_name: None,
+            company: None,
+            mail: None,
+            telephone: None,
+            address_2: None,
+            address_1: None,
+            city: None,
+            region: None,
+            index: None,
+            country: None,
+            description: element.description.clone(),
+            favorite: element.favorite
+        };
+
+        collection_element.insert_one(element_login, None).await?;
+        Ok(())
+    }
+
 }

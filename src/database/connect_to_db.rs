@@ -29,5 +29,5 @@ async fn connect() -> mongodb::error::Result<Database> {
 
     println!("connected to DB");
 
-    Ok(client.database("authorization"))
+    Ok(client.database("passsave"))
 }

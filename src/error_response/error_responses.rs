@@ -44,6 +44,11 @@ pub const WRONG_MAIL_JSON: ErrorResponse = ErrorResponse {
     cause: "Wrong mail",
 };
 
+pub const ERROR_DESCRIPTION_STATUS: Status = Status::BadRequest;
+pub const WRONG_DESCRIPTION_JSON: ErrorResponse = ErrorResponse {
+    cause: "Wrong description",
+};
+
 pub const ERROR_ALREADY_REGISTERED_STATUS: Status = Status::BadRequest;
 pub const ALREADY_REGISTERED_LOGIN_JSON: ErrorResponse = ErrorResponse {
     cause: "Already registered by login",
