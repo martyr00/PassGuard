@@ -1,7 +1,7 @@
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
-struct DataElementPersonal {
+pub struct DataElementPersonal {
     pub name: String,
     pub first_name: Option<String>,
     pub second_name: Option<String>,
