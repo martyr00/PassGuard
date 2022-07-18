@@ -18,5 +18,4 @@ base64 = "0.13.0"
 regex = "1.5.6"
 rocket_cors = { git = "https://github.com/lawliet89/rocket_cors", branch = "master" }
 schemars = "0.8.10"
-okapi = { version = "0.7.0-rc.1" }
-rocket_okapi = { version = "0.8.0-rc.2", features = ["swagger"] }
+crypto = "0.3.0"

@@ -14,7 +14,7 @@ use crate::routes::TypeValidTwoStr;
 use crate::{ErrorResponse, Status, UNKNOWN};
 
 #[post(
-    "/element",
+    "/element/login",
     data = "<option_data_element_login_model>",
     format = "json"
 )]
@@ -26,7 +26,7 @@ pub async fn post_element_login(
     match object_id_parse_str(auth.user_id) {
         Ok(id) => match check_data_element_login(option_data_element_login_model) {
             DataElementLoginError::Ok(element_login) => {
-                match database.add_element_login(element_login, id).await {
+                match database.post_element_login(element_login, id).await {
                     Ok(_) => Ok(Status::Ok),
                     Err(_) => Err(UNKNOWN),
                 }

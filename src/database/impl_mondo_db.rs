@@ -145,7 +145,7 @@ impl MongoDB {
         }
     }
 
-    pub async fn add_element_login(
+    pub async fn post_element_login(
         &self,
         element: Json<DataElementLogin>,
         id_user: ObjectId,
@@ -183,7 +183,7 @@ impl MongoDB {
         collection_element.insert_one(element_login, None).await?;
         Ok(())
     }
-    pub async fn add_element_card(
+    pub async fn post_element_card(
         &self,
         element: Json<DataElementCard>,
         id_user: ObjectId,
@@ -221,7 +221,7 @@ impl MongoDB {
         collection_element.insert_one(element_card, None).await?;
         Ok(())
     }
-    pub async fn add_element_personal_information(
+    pub async fn post_element_personal_information(
         &self,
         element: Json<DataElementPersonal>,
         id_user: ObjectId,
@@ -261,7 +261,7 @@ impl MongoDB {
             .await?;
         Ok(())
     }
-    pub async fn add_element_note(
+    pub async fn post_element_note(
         &self,
         element: Json<DataElementNote>,
         id_user: ObjectId,
