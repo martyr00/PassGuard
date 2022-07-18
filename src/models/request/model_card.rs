@@ -7,8 +7,8 @@ pub struct DataElementCard {
     pub number: Option<String>,
     pub type_card: Option<String>,
     pub month_card: Option<String>,
-    pub year_card:Option<String>,
-    pub ccv:Option<String>,
+    pub year_card: Option<String>,
+    pub ccv: Option<String>,
 
     pub description: Option<String>,
     pub favorite: bool,

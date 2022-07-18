@@ -35,7 +35,6 @@ pub struct Element {
     pub description: Option<String>,
 
     //note name && desc
-
     pub favorite: bool,
 }
 

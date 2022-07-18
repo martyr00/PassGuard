@@ -9,9 +9,9 @@ use crate::database::{FindUserBy, LoginError, RegistrationError};
 use crate::helper::{find_user_by_login_and_mail, hash_text};
 use crate::models::model_element::Element;
 use crate::models::model_user::User;
-use crate::models::request::model_login::DataElementLogin;
 use crate::models::request::login_request::LoginRequest;
 use crate::models::request::model_card::DataElementCard;
+use crate::models::request::model_login::DataElementLogin;
 use crate::models::request::model_note::DataElementNote;
 use crate::models::request::model_personal_info::DataElementPersonal;
 use crate::models::request::patch_request::EditUserRequest;
@@ -48,7 +48,6 @@ impl MongoDB {
         );
         Ok(())
     }
-
     pub async fn delete_user(&self, login: &str) -> mongodb::error::Result<()> {
         let collection = self.database.collection::<User>("user");
         collection
@@ -56,7 +55,6 @@ impl MongoDB {
             .await?;
         Ok(())
     }
-
     pub async fn find_user_by(
         &self,
         find_by: &str,
@@ -68,7 +66,6 @@ impl MongoDB {
             .find_one(bson::doc! { find_by: data_find_in }, None)
             .await?)
     }
-
     pub async fn find_user_by_id(
         &self,
         data_find_in: ObjectId,
@@ -107,7 +104,6 @@ impl MongoDB {
             Err(_) => Ok(LoginError::WrongLogin),
         }
     }
-
     pub async fn registration(
         &self,
         registration_request: Json<RegistrationRequest>,
@@ -149,7 +145,11 @@ impl MongoDB {
         }
     }
 
-    pub async fn add_element_login(&self, element: Json<DataElementLogin>, id_user: ObjectId) -> mongodb::error::Result<()> {
+    pub async fn add_element_login(
+        &self,
+        element: Json<DataElementLogin>,
+        id_user: ObjectId,
+    ) -> mongodb::error::Result<()> {
         let collection_element = self.database.collection::<Element>("element");
 
         let element_login = Element {
@@ -177,13 +177,17 @@ impl MongoDB {
             index: None,
             country: None,
             description: element.description.clone(),
-            favorite: element.favorite
+            favorite: element.favorite,
         };
 
-       collection_element.insert_one(element_login, None).await?;
+        collection_element.insert_one(element_login, None).await?;
         Ok(())
     }
-    pub async fn add_element_card(&self, element: Json<DataElementCard>, id_user: ObjectId) -> mongodb::error::Result<()> {
+    pub async fn add_element_card(
+        &self,
+        element: Json<DataElementCard>,
+        id_user: ObjectId,
+    ) -> mongodb::error::Result<()> {
         let collection_element = self.database.collection::<Element>("element");
 
         let element_card = Element {
@@ -217,7 +221,11 @@ impl MongoDB {
         collection_element.insert_one(element_card, None).await?;
         Ok(())
     }
-    pub async fn add_element_personal_information(&self, element: Json<DataElementPersonal>, id_user: ObjectId) -> mongodb::error::Result<()> {
+    pub async fn add_element_personal_information(
+        &self,
+        element: Json<DataElementPersonal>,
+        id_user: ObjectId,
+    ) -> mongodb::error::Result<()> {
         let collection_element = self.database.collection::<Element>("element");
 
         let element_personal_info = Element {
@@ -245,13 +253,19 @@ impl MongoDB {
             index: element.index.clone(),
             country: element.country.clone(),
             description: element.description.clone(),
-            favorite: element.favorite
+            favorite: element.favorite,
         };
 
-        collection_element.insert_one(element_personal_info, None).await?;
+        collection_element
+            .insert_one(element_personal_info, None)
+            .await?;
         Ok(())
     }
-    pub async fn add_element_note(&self, element: Json<DataElementNote>, id_user: ObjectId) -> mongodb::error::Result<()> {
+    pub async fn add_element_note(
+        &self,
+        element: Json<DataElementNote>,
+        id_user: ObjectId,
+    ) -> mongodb::error::Result<()> {
         let collection_element = self.database.collection::<Element>("element");
 
         let element_note = Element {
@@ -285,5 +299,4 @@ impl MongoDB {
         collection_element.insert_one(element_note, None).await?;
         Ok(())
     }
-
 }
