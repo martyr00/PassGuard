@@ -17,7 +17,10 @@ use crate::routes::authorization::registration::registration;
 use crate::routes::routes::delete_user::delete_user;
 use crate::routes::routes::get_data_user::get_data_user;
 use crate::routes::routes::hello_name::{hello_name_user, hello_world};
+use crate::routes::routes::passsave_elements::post_elements::post_element_card::post_element_card;
 use crate::routes::routes::passsave_elements::post_elements::post_element_login::post_element_login;
+use crate::routes::routes::passsave_elements::post_elements::post_element_note::post_element_note;
+use crate::routes::routes::passsave_elements::post_elements::post_element_personal::post_element_personal;
 use crate::routes::routes::patch_user::edit_user;
 use crate::routes::routes::refresh_tokens::refresh_tokens;
 
@@ -54,6 +57,9 @@ async fn rocket() -> _ {
                 edit_user,
                 get_data_user,
                 post_element_login,
+                post_element_card,
+                post_element_note,
+                post_element_personal,
             ],
         )
         .manage(cors.to_cors())

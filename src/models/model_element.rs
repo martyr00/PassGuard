@@ -54,7 +54,7 @@ fn check_element(option_text: Option<&String>, len: usize) -> bool {
             if text.is_empty() {
                 return false;
             }
-            if text.len() >= len {
+            if text.len() > len {
                 return false;
             }
             true
