@@ -1,19 +1,15 @@
+use crate::constants::{EXPIRATION_REFRESH_TOKEN, EXPIRATION_TOKEN};
 use bcrypt::verify;
 use mongodb::bson::oid::ObjectId;
 use mongodb::{bson, Database};
 use rocket::serde::json::Json;
 
-use crate::constants::{EXPIRATION_REFRESH_TOKEN, EXPIRATION_TOKEN};
 use crate::database::connect_to_db::MongoDB;
 use crate::database::{FindUserBy, LoginError, RegistrationError};
 use crate::helper::{find_user_by_login_and_mail, hash_text};
 use crate::models::model_element::Element;
 use crate::models::model_user::User;
 use crate::models::request::login_request::LoginRequest;
-use crate::models::request::model_card::DataElementCard;
-use crate::models::request::model_login::DataElementLogin;
-use crate::models::request::model_note::DataElementNote;
-use crate::models::request::model_personal_info::DataElementPersonal;
 use crate::models::request::patch_request::EditUserRequest;
 use crate::models::request::registration_request::RegistrationRequest;
 use crate::private::{JWT_SECRET, REFRESH_JWT_SECRET};
@@ -145,158 +141,10 @@ impl MongoDB {
         }
     }
 
-    pub async fn post_element_login(
-        &self,
-        element: Json<DataElementLogin>,
-        id_user: ObjectId,
-    ) -> mongodb::error::Result<()> {
+    pub async fn post_element(&self, element: &Element) -> mongodb::error::Result<()> {
         let collection_element = self.database.collection::<Element>("element");
 
-        let element_login = Element {
-            id_user,
-            name: element.name.clone(),
-            login: Some(element.login.clone()),
-            password: Some(element.password.clone()),
-            url: element.url.clone(),
-            owners_name: None,
-            number: None,
-            type_card: None,
-            month_card: None,
-            year_card: None,
-            ccv: None,
-            first_name: None,
-            second_name: None,
-            last_name: None,
-            company: None,
-            mail: None,
-            telephone: None,
-            address_2: None,
-            address_1: None,
-            city: None,
-            region: None,
-            index: None,
-            country: None,
-            description: element.description.clone(),
-            favorite: element.favorite,
-        };
-
-        collection_element.insert_one(element_login, None).await?;
-        Ok(())
-    }
-    pub async fn post_element_card(
-        &self,
-        element: Json<DataElementCard>,
-        id_user: ObjectId,
-    ) -> mongodb::error::Result<()> {
-        let collection_element = self.database.collection::<Element>("element");
-
-        let element_card = Element {
-            id_user,
-            name: element.name.clone(),
-            login: None,
-            password: None,
-            url: None,
-            owners_name: element.owners_name.clone(),
-            number: element.number.clone(),
-            type_card: element.type_card.clone(),
-            month_card: element.month_card.clone(),
-            year_card: element.year_card.clone(),
-            ccv: element.ccv.clone(),
-            first_name: None,
-            second_name: None,
-            last_name: None,
-            company: None,
-            mail: None,
-            telephone: None,
-            address_2: None,
-            address_1: None,
-            city: None,
-            region: None,
-            index: None,
-            country: None,
-            description: element.description.clone(),
-            favorite: element.favorite,
-        };
-
-        collection_element.insert_one(element_card, None).await?;
-        Ok(())
-    }
-    pub async fn post_element_personal_information(
-        &self,
-        element: Json<DataElementPersonal>,
-        id_user: ObjectId,
-    ) -> mongodb::error::Result<()> {
-        let collection_element = self.database.collection::<Element>("element");
-
-        let element_personal_info = Element {
-            id_user,
-            name: element.name.clone(),
-            login: element.login.clone(),
-            password: None,
-            url: None,
-            owners_name: None,
-            number: None,
-            type_card: None,
-            month_card: None,
-            year_card: None,
-            ccv: None,
-            first_name: element.first_name.clone(),
-            second_name: element.second_name.clone(),
-            last_name: element.last_name.clone(),
-            company: element.company.clone(),
-            mail: element.mail.clone(),
-            telephone: element.telephone.clone(),
-            address_2: element.address_2.clone(),
-            address_1: element.address_1.clone(),
-            city: element.city.clone(),
-            region: element.region.clone(),
-            index: element.index.clone(),
-            country: element.country.clone(),
-            description: element.description.clone(),
-            favorite: element.favorite,
-        };
-
-        collection_element
-            .insert_one(element_personal_info, None)
-            .await?;
-        Ok(())
-    }
-    pub async fn post_element_note(
-        &self,
-        element: Json<DataElementNote>,
-        id_user: ObjectId,
-    ) -> mongodb::error::Result<()> {
-        let collection_element = self.database.collection::<Element>("element");
-
-        let element_note = Element {
-            id_user,
-            name: element.name.clone(),
-            login: None,
-            password: None,
-            url: None,
-            owners_name: None,
-            number: None,
-            type_card: None,
-            month_card: None,
-            year_card: None,
-            ccv: None,
-            first_name: None,
-            second_name: None,
-            last_name: None,
-            company: None,
-            mail: None,
-            telephone: None,
-            address_2: None,
-            address_1: None,
-            city: None,
-            region: None,
-            index: None,
-            country: None,
-            description: element.description.clone(),
-            favorite: element.favorite,
-        };
-
-        collection_element.insert_one(element_note, None).await?;
+        collection_element.insert_one(&*element, None).await?;
         Ok(())
     }
 }

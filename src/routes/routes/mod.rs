@@ -4,8 +4,8 @@ use rocket::serde::json::Json;
 pub mod delete_user;
 pub mod get_data_user;
 pub mod hello_name;
+pub mod passsave_elements;
 pub mod patch_user;
-pub mod post_pass;
 pub mod refresh_tokens;
 
 enum HelloNameError {

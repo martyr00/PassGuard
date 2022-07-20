@@ -1,4 +1,3 @@
-use crate::constants::LenText;
 use crate::database::connect_to_db::MongoDB;
 use crate::database::FindUserBy;
 use crate::models::model_user::User;
@@ -93,21 +92,5 @@ pub async fn parse_id_and_find_user_by_id(
             Err(_) => FindUserById::BadId,
         },
         Err(_) => FindUserById::BadId,
-    }
-}
-
-pub enum ValidDescAndUrlError {
-    Ok,
-    DescriptionIsNotValid,
-    NoneDescription,
-}
-
-pub fn get_valid_desc(description: Option<String>, len_desc: LenText) -> ValidDescAndUrlError {
-    match description {
-        None => ValidDescAndUrlError::NoneDescription,
-        Some(description) => match check_valid_text(&description, len_desc.max, len_desc.min) {
-            true => ValidDescAndUrlError::Ok,
-            false => ValidDescAndUrlError::DescriptionIsNotValid,
-        },
     }
 }
