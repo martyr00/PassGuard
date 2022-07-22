@@ -1,5 +1,5 @@
 use crate::constants::{
-    LEN_FIRST_NAME, LEN_LAST_NAME, LEN_LOGIN_AUTH, UNKNOWN, WEAK_LOGIN, WRONG_FIRST_NAME,
+    LEN_FIRST_NAME, LEN_LAST_NAME, LEN_LOGIN, UNKNOWN, WEAK_LOGIN, WRONG_FIRST_NAME,
     WRONG_LAST_NAME, WRONG_MAIL, WRONG_REQUEST,
 };
 use rocket::serde::json::Json;
@@ -45,7 +45,7 @@ fn check_edit_data_user_request(
     match option_edit_model {
         None => EditUserRequestError::NoneEditModel,
         Some(edit_model) => {
-            match valid_edit_model(&edit_model, LEN_FIRST_NAME, LEN_LAST_NAME, LEN_LOGIN_AUTH) {
+            match valid_edit_model(&edit_model, LEN_FIRST_NAME, LEN_LAST_NAME, LEN_LOGIN) {
                 ValidEditModelError::Ok => EditUserRequestError::Ok(edit_model),
                 ValidEditModelError::BadMail => EditUserRequestError::BadMail,
                 ValidEditModelError::BadLogin => EditUserRequestError::BadLogin,

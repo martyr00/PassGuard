@@ -1,13 +1,12 @@
-use crate::constants::{EXPIRATION_REFRESH_TOKEN, EXPIRATION_TOKEN};
 use bcrypt::verify;
 use mongodb::bson::oid::ObjectId;
 use mongodb::{bson, Database};
 use rocket::serde::json::Json;
 
+use crate::constants::{EXPIRATION_REFRESH_TOKEN, EXPIRATION_TOKEN};
 use crate::database::connect_to_db::MongoDB;
 use crate::database::{FindUserBy, LoginError, RegistrationError};
 use crate::helper::{find_user_by_login_and_mail, hash_text};
-use crate::models::model_element::Element;
 use crate::models::model_user::User;
 use crate::models::request::login_request::LoginRequest;
 use crate::models::request::patch_request::EditUserRequest;
@@ -44,6 +43,7 @@ impl MongoDB {
         );
         Ok(())
     }
+
     pub async fn delete_user(&self, login: &str) -> mongodb::error::Result<()> {
         let collection = self.database.collection::<User>("user");
         collection
@@ -51,6 +51,7 @@ impl MongoDB {
             .await?;
         Ok(())
     }
+
     pub async fn find_user_by(
         &self,
         find_by: &str,
@@ -62,6 +63,7 @@ impl MongoDB {
             .find_one(bson::doc! { find_by: data_find_in }, None)
             .await?)
     }
+
     pub async fn find_user_by_id(
         &self,
         data_find_in: ObjectId,
@@ -100,6 +102,7 @@ impl MongoDB {
             Err(_) => Ok(LoginError::WrongLogin),
         }
     }
+
     pub async fn registration(
         &self,
         registration_request: Json<RegistrationRequest>,
@@ -139,12 +142,5 @@ impl MongoDB {
             FindUserBy::UserFoundByEmail => Ok(RegistrationError::AlreadyRegisteredByEmail),
             FindUserBy::UserFoundByLogin => Ok(RegistrationError::AlreadyRegisteredByLogin),
         }
-    }
-
-    pub async fn post_element(&self, element: &Element) -> mongodb::error::Result<()> {
-        let collection_element = self.database.collection::<Element>("element");
-
-        collection_element.insert_one(&*element, None).await?;
-        Ok(())
     }
 }

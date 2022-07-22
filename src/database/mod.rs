@@ -1,5 +1,6 @@
 pub mod connect_to_db;
-pub mod impl_mondo_db;
+pub mod methods_for_auth_to_mondo_db;
+pub mod methods_for_element_to_mongo_db;
 
 use crate::models::tokens::Token;
 
