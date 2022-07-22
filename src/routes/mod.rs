@@ -1,6 +1,7 @@
 pub mod authorization;
 pub mod routes;
 pub mod validator_authorization;
+pub mod elements;
 
 pub enum TypeValidDataFromRegistration {
     Ok,
