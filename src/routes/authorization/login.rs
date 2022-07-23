@@ -6,7 +6,7 @@ use crate::constants::{LEN_LOGIN, LEN_PASSWORD, WRONG_REQUEST};
 use crate::database::connect_to_db::MongoDB;
 use crate::database::LoginError;
 use crate::error_response::error_responses::ErrorResponse;
-use crate::models::request::login_request::LoginRequest;
+use crate::models::request::login_user_request::LoginRequest;
 use crate::models::tokens::Token;
 use crate::routes::authorization::LoginRequestError;
 use crate::routes::validator_authorization::get_valid_login_and_password;

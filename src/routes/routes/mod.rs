@@ -1,4 +1,4 @@
-use crate::models::request::patch_request::EditUserRequest;
+use crate::models::request::patch_user_request::EditUserRequest;
 use rocket::serde::json::Json;
 
 pub mod delete_user;

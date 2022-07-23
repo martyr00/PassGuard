@@ -1,8 +1,8 @@
 use crate::check_valid_text;
 use crate::constants::LenText;
 use crate::helper::check_valid_name;
-use crate::models::request::patch_request::EditUserRequest;
-use crate::models::request::registration_request::RegistrationRequest;
+use crate::models::request::patch_user_request::EditUserRequest;
+use crate::models::request::registration_user_request::RegistrationRequest;
 use crate::routes::TypeValidDataFromRegistration::*;
 use crate::routes::{TypeValidDataFromRegistration, TypeValidMail, TypeValidTwoStr};
 use regex::Regex;
