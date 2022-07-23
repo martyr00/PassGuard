@@ -43,11 +43,11 @@ pub fn check_note_request(
 ) -> Result<PostNoteElementError, None> {
     match option_note_element {
         None => Err(None),
-        Some(note_element) => {
+        Some(note_model) => {
             let element = Element {
                 _id: ObjectId::new(),
                 id_user,
-                name: note_element.name.clone(),
+                name: note_model.name.clone(),
                 login: None,
                 password: None,
                 url: None,
@@ -69,9 +69,9 @@ pub fn check_note_request(
                 region: None,
                 index: None,
                 country: None,
-                description: Some(note_element.description.clone()),
-                folder: note_element.folder.clone(),
-                favorite: note_element.favourite,
+                description: Some(note_model.description.clone()),
+                folder: note_model.folder.clone(),
+                favorite: note_model.favourite,
             };
             match is_valid_element(&element) {
                 PostElementError::Ok => Ok(PostNoteElementError::Ok(element)),
