@@ -3,7 +3,7 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct PersonalElementRequest {
     pub name: String,
-    pub description: String,
+    pub description: Option<String>,
 
     pub first_name: Option<String>,
     pub second_name: Option<String>,

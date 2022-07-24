@@ -33,16 +33,16 @@ pub async fn post_note(
             Status::BadRequest,
             Json(VecErrorsElementInModel { error: errors_vec }),
         ))),
-        Err(None) => Err(WRONG_REQUEST),
+        Err(_) => Err(WRONG_REQUEST),
     }
 }
 
 pub fn check_note_request(
     option_note_element: Option<Json<NoteElementRequest>>,
     id_user: String,
-) -> Result<PostNoteElementError, None> {
+) -> Result<PostNoteElementError, ()> {
     match option_note_element {
-        None => Err(None),
+        None => Err(()),
         Some(note_model) => {
             let element = from_note_model_to_element_model(note_model, id_user);
             match is_valid_element(&element) {
@@ -85,7 +85,7 @@ pub fn from_note_model_to_element_model(
         region: None,
         index: None,
         country: None,
-        description: Some(note_model.description.clone()),
+        description: note_model.description.clone(),
         folder: note_model.folder.clone(),
         favorite: note_model.favourite,
     }

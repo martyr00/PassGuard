@@ -33,16 +33,16 @@ pub async fn post_login(
             Status::BadRequest,
             Json(VecErrorsElementInModel { error: errors_vec }),
         ))),
-        Err(None) => Err(WRONG_REQUEST),
+        Err(_) => Err(WRONG_REQUEST),
     }
 }
 
 pub fn check_login_request(
     option_login_element: Option<Json<LoginElementRequest>>,
     id_user: String,
-) -> Result<PostLoginElementError, None> {
+) -> Result<PostLoginElementError, ()> {
     match option_login_element {
-        None => Err(None),
+        None => Err(()),
         Some(login_model) => {
             let element = from_login_model_to_element_model(login_model, id_user);
             match is_valid_element(&element) {
@@ -85,7 +85,7 @@ pub fn from_login_model_to_element_model(
         region: None,
         index: None,
         country: None,
-        description: Some(login_model.description.clone()),
+        description: login_model.description.clone(),
         folder: login_model.folder.clone(),
         favorite: login_model.favourite,
     }

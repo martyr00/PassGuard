@@ -3,7 +3,7 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct LoginElementRequest {
     pub name: String,
-    pub description: String,
+    pub description: Option<String>,
 
     pub login: Option<String>,
     pub password: Option<String>,
