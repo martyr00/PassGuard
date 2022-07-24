@@ -44,35 +44,7 @@ pub fn check_note_request(
     match option_note_element {
         None => Err(None),
         Some(note_model) => {
-            let element = Element {
-                _id: ObjectId::new(),
-                id_user,
-                name: note_model.name.clone(),
-                login: None,
-                password: None,
-                url: None,
-                owners_name: None,
-                number: None,
-                type_card: None,
-                month_card: None,
-                year_card: None,
-                ccv: None,
-                first_name: None,
-                second_name: None,
-                last_name: None,
-                company: None,
-                mail: None,
-                telephone: None,
-                address_2: None,
-                address_1: None,
-                city: None,
-                region: None,
-                index: None,
-                country: None,
-                description: Some(note_model.description.clone()),
-                folder: note_model.folder.clone(),
-                favorite: note_model.favourite,
-            };
+            let element = from_note_model_to_element_model(note_model, id_user);
             match is_valid_element(&element) {
                 PostElementError::Ok => Ok(PostNoteElementError::Ok(element)),
                 PostElementError::Unknown => Ok(PostNoteElementError::Unknown),
@@ -81,6 +53,41 @@ pub fn check_note_request(
                 }
             }
         }
+    }
+}
+
+pub fn from_note_model_to_element_model(
+    note_model: Json<NoteElementRequest>,
+    id_user: String,
+) -> Element {
+    Element {
+        _id: ObjectId::new(),
+        id_user,
+        name: note_model.name.clone(),
+        login: None,
+        password: None,
+        url: None,
+        owners_name: None,
+        number: None,
+        type_card: None,
+        month_card: None,
+        year_card: None,
+        ccv: None,
+        first_name: None,
+        second_name: None,
+        last_name: None,
+        company: None,
+        mail: None,
+        telephone: None,
+        address_2: None,
+        address_1: None,
+        city: None,
+        region: None,
+        index: None,
+        country: None,
+        description: Some(note_model.description.clone()),
+        folder: note_model.folder.clone(),
+        favorite: note_model.favourite,
     }
 }
 
