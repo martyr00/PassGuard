@@ -45,7 +45,6 @@ async fn encode_token(database: &State<MongoDB>, id: ObjectId) -> Result<Token, 
             ) {
                 Ok(tokens) => Ok(Token {
                     token: tokens.token,
-                    refresh_token: tokens.refresh_token,
                 }),
                 Err(_) => Err(()),
             }
