@@ -8,7 +8,7 @@ use rocket::State;
 
 //check valid text
 pub fn check_valid_text(text: &str, max_size: usize, min_size: usize) -> bool {
-    return if !text.is_empty() && text.len() <= max_size && text.len() >= min_size {
+    return if !text.is_empty() || text.len() <= max_size || text.len() >= min_size {
         true
     } else {
         false
@@ -17,7 +17,7 @@ pub fn check_valid_text(text: &str, max_size: usize, min_size: usize) -> bool {
 
 //check valid name
 pub fn check_valid_name(text: &str, max_size: usize, min_size: usize) -> bool {
-    return if text.is_empty() || text.len() <= max_size && text.len() >= min_size {
+    return if text.is_empty() || text.len() <= max_size || text.len() >= min_size {
         true
     } else {
         false

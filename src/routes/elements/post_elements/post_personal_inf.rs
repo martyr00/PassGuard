@@ -5,6 +5,7 @@ use crate::models::request::elements::personal_element_request::PersonalElementR
 use crate::models::response::elements::error_elements::{ErrorElement, VecErrorsElementInModel};
 use crate::routes::authorization::token::request_access_token::AuthorizedUser;
 use crate::routes::elements::post_elements::PostElementError;
+use crate::routes::validator_elements::is_valid_element;
 use crate::{ErrorResponse, Status, UNKNOWN};
 use mongodb::bson::oid::ObjectId;
 use rocket::serde::json::Json;
@@ -29,7 +30,6 @@ pub async fn post_personal(
             Ok(_) => Ok(Ok((Status::Ok, Json(element)))),
             Err(_) => Err(UNKNOWN),
         },
-        Ok(PostPersonalInfElementError::Unknown) => Err(UNKNOWN),
         Ok(PostPersonalInfElementError::ErrorElements(errors_vec)) => Ok(Err((
             Status::BadRequest,
             Json(VecErrorsElementInModel { error: errors_vec }),
@@ -48,7 +48,6 @@ pub fn check_personal_inf_request(
             let element = from_personal_inf_model_to_element_model(personal_inf_model, id_user);
             match is_valid_element(&element) {
                 PostElementError::Ok => Ok(PostPersonalInfElementError::Ok(element)),
-                PostElementError::Unknown => Ok(PostPersonalInfElementError::Unknown),
                 PostElementError::ErrorElements(vec_errors) => {
                     Ok(PostPersonalInfElementError::ErrorElements(vec_errors))
                 }
@@ -94,6 +93,5 @@ pub fn from_personal_inf_model_to_element_model(
 
 pub enum PostPersonalInfElementError {
     Ok(Element),
-    Unknown,
     ErrorElements(Vec<ErrorElement>),
 }

@@ -5,6 +5,7 @@ use crate::models::request::elements::card_element_request::CardElementRequest;
 use crate::models::response::elements::error_elements::{ErrorElement, VecErrorsElementInModel};
 use crate::routes::authorization::token::request_access_token::AuthorizedUser;
 use crate::routes::elements::post_elements::PostElementError;
+use crate::routes::validator_elements::is_valid_element;
 use crate::{ErrorResponse, Status, UNKNOWN};
 use mongodb::bson::oid::ObjectId;
 use rocket::serde::json::Json;
@@ -28,7 +29,6 @@ pub async fn post_card(
             Ok(_) => Ok(Ok((Status::Ok, Json(element)))),
             Err(_) => Err(UNKNOWN),
         },
-        Ok(PostCardElementError::Unknown) => Err(UNKNOWN),
         Ok(PostCardElementError::ErrorElements(errors_vec)) => Ok(Err((
             Status::BadRequest,
             Json(VecErrorsElementInModel { error: errors_vec }),
@@ -47,7 +47,6 @@ pub fn check_card_request(
             let element = from_card_model_to_element_model(card_model, id_user);
             match is_valid_element(&element) {
                 PostElementError::Ok => Ok(PostCardElementError::Ok(element)),
-                PostElementError::Unknown => Ok(PostCardElementError::Unknown),
                 PostElementError::ErrorElements(vec_errors) => {
                     Ok(PostCardElementError::ErrorElements(vec_errors))
                 }
@@ -93,6 +92,5 @@ pub fn from_card_model_to_element_model(
 
 pub enum PostCardElementError {
     Ok(Element),
-    Unknown,
     ErrorElements(Vec<ErrorElement>),
 }

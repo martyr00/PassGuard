@@ -5,7 +5,8 @@ pub struct VecErrorsElementInModel {
     pub(crate) error: Vec<ErrorElement>,
 }
 
+#[derive(Serialize)]
 pub struct ErrorElement {
-    name: String,
-    cause: String,
+    pub(crate) name: &'static str,
+    pub(crate) cause: &'static str,
 }

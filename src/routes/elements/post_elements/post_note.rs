@@ -5,6 +5,7 @@ use crate::models::request::elements::note_element_request::NoteElementRequest;
 use crate::models::response::elements::error_elements::{ErrorElement, VecErrorsElementInModel};
 use crate::routes::authorization::token::request_access_token::AuthorizedUser;
 use crate::routes::elements::post_elements::PostElementError;
+use crate::routes::validator_elements::is_valid_element;
 use crate::{ErrorResponse, Status, UNKNOWN};
 use mongodb::bson::oid::ObjectId;
 use rocket::serde::json::Json;
@@ -28,7 +29,6 @@ pub async fn post_note(
             Ok(_) => Ok(Ok((Status::Ok, Json(element)))),
             Err(_) => Err(UNKNOWN),
         },
-        Ok(PostNoteElementError::Unknown) => Err(UNKNOWN),
         Ok(PostNoteElementError::ErrorElements(errors_vec)) => Ok(Err((
             Status::BadRequest,
             Json(VecErrorsElementInModel { error: errors_vec }),
@@ -47,7 +47,6 @@ pub fn check_note_request(
             let element = from_note_model_to_element_model(note_model, id_user);
             match is_valid_element(&element) {
                 PostElementError::Ok => Ok(PostNoteElementError::Ok(element)),
-                PostElementError::Unknown => Ok(PostNoteElementError::Unknown),
                 PostElementError::ErrorElements(vec_errors) => {
                     Ok(PostNoteElementError::ErrorElements(vec_errors))
                 }
@@ -93,6 +92,5 @@ pub fn from_note_model_to_element_model(
 
 pub enum PostNoteElementError {
     Ok(Element),
-    Unknown,
     ErrorElements(Vec<ErrorElement>),
 }
