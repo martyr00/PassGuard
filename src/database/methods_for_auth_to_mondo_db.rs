@@ -12,7 +12,7 @@ use crate::models::request::login_user_request::LoginRequest;
 use crate::models::request::patch_user_request::EditUserRequest;
 use crate::models::request::registration_user_request::RegistrationRequest;
 use crate::private::{JWT_SECRET, REFRESH_JWT_SECRET};
-use crate::routes::authorization::token::create_token::encode_token_and_refresh;
+use crate::routes::user_routes::token::create_token::encode_token_and_refresh;
 
 impl MongoDB {
     pub fn new(database: Database) -> Self {

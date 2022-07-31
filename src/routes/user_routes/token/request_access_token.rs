@@ -1,6 +1,6 @@
 use crate::helper::check_data_from_auth_header;
 use crate::private::JWT_SECRET;
-use crate::routes::authorization::token::create_token::{decode_jwt, DecodeJwtHelper};
+use crate::routes::user_routes::token::create_token::{decode_jwt, DecodeJwtHelper};
 use rocket::http::Status;
 use rocket::request::{FromRequest, Outcome};
 use rocket::Request;

@@ -3,7 +3,7 @@ use crate::database::connect_to_db::MongoDB;
 use crate::models::elements_model::Element;
 use crate::models::request::elements::personal_element_request::PersonalElementRequest;
 use crate::models::response::elements::error_elements::{ErrorElement, VecErrorsElementInModel};
-use crate::routes::authorization::token::request_access_token::AuthorizedUser;
+use crate::routes::user_routes::token::request_access_token::AuthorizedUser;
 use crate::routes::elements::post_elements::PostElementError;
 use crate::routes::validator_elements::is_valid_element;
 use crate::{ErrorResponse, Status, UNKNOWN};

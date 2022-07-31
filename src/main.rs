@@ -12,17 +12,15 @@ use crate::error_response::error_responses::{
     ErrorResponse, NOT_FOUND_JSON, UNAUTHORIZED_JSON, UNKNOWN_JSON,
 };
 use crate::helper::check_valid_text;
-use crate::routes::authorization::login::login;
-use crate::routes::authorization::registration::registration;
+use crate::routes::user_routes::login::login;
+use crate::routes::user_routes::registration::registration;
 use crate::routes::elements::post_elements::post_card::post_card;
 use crate::routes::elements::post_elements::post_login::post_login;
 use crate::routes::elements::post_elements::post_note::post_note;
 use crate::routes::elements::post_elements::post_personal_inf::post_personal;
-use crate::routes::routes::delete_user::delete_user;
-use crate::routes::routes::get_data_user::get_data_user;
-use crate::routes::routes::hello_name::{hello_name_user, hello_world};
-use crate::routes::routes::patch_user::edit_user;
-use crate::routes::routes::refresh_tokens::refresh_tokens;
+use routes::user_routes::delete_user::delete_user;
+use routes::user_routes::get_data_user::get_data_user;
+use routes::user_routes::patch_user::edit_user;
 
 pub mod constants;
 mod database;
@@ -50,9 +48,6 @@ async fn rocket() -> _ {
             routes![
                 registration,
                 login,
-                hello_name_user,
-                hello_world,
-                refresh_tokens,
                 delete_user,
                 edit_user,
                 get_data_user,

@@ -8,7 +8,7 @@ use crate::database::LoginError;
 use crate::error_response::error_responses::ErrorResponse;
 use crate::models::request::login_user_request::LoginRequest;
 use crate::models::tokens::Token;
-use crate::routes::authorization::LoginRequestError;
+use crate::routes::user_routes::LoginRequestError;
 use crate::routes::validator_authorization::get_valid_login_and_password;
 use crate::routes::TypeValidTwoStr;
 

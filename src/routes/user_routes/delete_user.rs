@@ -1,7 +1,7 @@
 use crate::constants::WRONG_REQUEST;
 use crate::database::connect_to_db::MongoDB;
 use crate::helper::{parse_id_and_find_user_by_id, FindUserById};
-use crate::routes::authorization::token::request_access_token::AuthorizedUser;
+use crate::routes::user_routes::token::request_access_token::AuthorizedUser;
 use crate::{ErrorResponse, UNAUTHORIZED, UNKNOWN};
 use rocket::http::Status;
 use rocket::serde::json::Json;

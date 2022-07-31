@@ -12,7 +12,7 @@ use crate::database::RegistrationError;
 use crate::error_response::error_responses::ErrorResponse;
 use crate::models::request::registration_user_request::RegistrationRequest;
 use crate::models::tokens::Token;
-use crate::routes::authorization::RegistrationRequestError;
+use crate::routes::user_routes::RegistrationRequestError;
 use crate::routes::validator_authorization::valid_registration_data_user;
 use crate::routes::TypeValidDataFromRegistration;
 
