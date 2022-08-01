@@ -14,13 +14,10 @@ use crate::error_response::error_responses::{
 use crate::helper::check_valid_text;
 use crate::routes::user_routes::login::login;
 use crate::routes::user_routes::registration::registration;
-use crate::routes::elements::post_elements::post_card::post_card;
-use crate::routes::elements::post_elements::post_login::post_login;
-use crate::routes::elements::post_elements::post_note::post_note;
-use crate::routes::elements::post_elements::post_personal_inf::post_personal;
 use routes::user_routes::delete_user::delete_user;
 use routes::user_routes::get_data_user::get_data_user;
 use routes::user_routes::patch_user::edit_user;
+use crate::routes::elements::post_element::post_element;
 
 pub mod constants;
 mod database;
@@ -51,10 +48,7 @@ async fn rocket() -> _ {
                 delete_user,
                 edit_user,
                 get_data_user,
-                post_note,
-                post_login,
-                post_card,
-                post_personal,
+                post_element,
             ],
         )
         .manage(cors.to_cors())

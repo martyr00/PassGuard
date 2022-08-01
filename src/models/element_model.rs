@@ -4,6 +4,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Element {
     pub _id: ObjectId,
+    pub user_id: String,
+    pub data:Vec<u8>,
+}
+/*pub struct Element {
+    pub _id: ObjectId,
     pub id_user: String,
 
     pub name: String,
@@ -37,4 +42,4 @@ pub struct Element {
 
     pub folder: Option<String>,
     pub favorite: bool,
-}
+}*/
