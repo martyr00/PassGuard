@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct Element {
     pub _id: ObjectId,
     pub user_id: String,
-    pub data:Vec<u8>,
+    pub data:String,
 }
 /*pub struct Element {
     pub _id: ObjectId,
