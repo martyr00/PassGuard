@@ -1,5 +1,5 @@
-pub mod user_routes;
 pub mod elements;
+pub mod user_routes;
 pub mod validator_authorization;
 
 pub enum TypeValidDataFromRegistration {

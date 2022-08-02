@@ -9,9 +9,9 @@ use crate::database::connect_to_db::MongoDB;
 use crate::helper::{parse_id_and_find_user_by_id, FindUserById};
 use crate::models::request::patch_user_request::EditUserRequest;
 use crate::routes::user_routes::token::request_access_token::AuthorizedUser;
+use crate::routes::user_routes::EditUserRequestError;
 use crate::routes::validator_authorization::{valid_edit_model, ValidEditModelError};
 use crate::{ErrorResponse, Status, UNAUTHORIZED};
-use crate::routes::user_routes::EditUserRequestError;
 
 //edit user data without id and password
 #[patch("/user", data = "<option_edit_model>", format = "json")]

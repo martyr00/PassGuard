@@ -5,5 +5,5 @@ use serde::{Deserialize, Serialize};
 pub struct Preview {
     pub _id: ObjectId,
     pub user_id: String,
-    pub data:String,
+    pub data: String,
 }

@@ -12,12 +12,14 @@ use crate::error_response::error_responses::{
     ErrorResponse, NOT_FOUND_JSON, UNAUTHORIZED_JSON, UNKNOWN_JSON,
 };
 use crate::helper::check_valid_text;
+use crate::routes::elements::get_element::get_element;
+use crate::routes::elements::get_previews::get_preview_element;
+use crate::routes::elements::post_element::post_element;
 use crate::routes::user_routes::login::login;
 use crate::routes::user_routes::registration::registration;
 use routes::user_routes::delete_user::delete_user;
 use routes::user_routes::get_data_user::get_data_user;
 use routes::user_routes::patch_user::edit_user;
-use crate::routes::elements::post_element::post_element;
 
 pub mod constants;
 mod database;
@@ -49,6 +51,8 @@ async fn rocket() -> _ {
                 edit_user,
                 get_data_user,
                 post_element,
+                get_preview_element,
+                get_element,
             ],
         )
         .manage(cors.to_cors())
